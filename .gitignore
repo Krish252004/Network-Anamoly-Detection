@@ -1,4 +1,4 @@
-# Data directories
+# Data directories (keep locally but don't track in Git)
 data/
 models/
 results/
