@@ -34,10 +34,14 @@ A **production-ready** machine learning system for detecting network traffic ano
 
 3. **Download the dataset** (KDD Cup 1999)
    ```bash
-   # The dataset files should be placed in data/raw/:
-   # - kddcup.data_10_percent.gz
-   # - corrected.gz
-   # - kddcup.testdata.unlabeled.gz
+   # Download the KDD Cup 1999 dataset from:
+   # https://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html
+   # 
+   # Create the following directory structure:
+   # data/raw/
+   #   - kddcup.data_10_percent.gz
+   #   - corrected.gz
+   #   - kddcup.testdata.unlabeled.gz
    ```
 
 ### Running the System
@@ -83,20 +87,20 @@ This project uses the **KDD Cup 1999** dataset, which contains:
 ```
 Project Structure
 ├── main.py                    # Main execution script
+├── train_models.py           # Training script
 ├── config.yaml               # Configuration settings
 ├── requirements.txt          # Python dependencies
-├── data/
-│   ├── raw/                  # Original dataset files
-│   └── processed/            # Preprocessed data
-├── src/
-│   ├── data_preprocessing.py # Data loading and preprocessing
-│   ├── feature_engineering.py # Advanced feature creation
-│   ├── model_training.py     # Model training pipeline
-│   ├── model_evaluation.py   # Evaluation and metrics
-│   ├── model_inference.py    # Production inference
-│   └── utilities.py          # Helper functions
-├── models/                   # Trained model files
-└── results/                  # Outputs and visualizations
+├── .gitignore               # Git ignore file
+├── LICENSE                  # License file
+└── src/
+    ├── __init__.py          # Package initialization
+    ├── data_preprocessing.py # Data loading and preprocessing
+    ├── feature_engineering.py # Advanced feature creation
+    ├── model_training.py     # Model training pipeline
+    ├── model_evaluation.py   # Evaluation and metrics
+    ├── model_inference.py    # Production inference
+    ├── model_configurations.py # Model configurations
+    └── utilities.py          # Helper functions
 ```
 
 
