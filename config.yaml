@@ -1,0 +1,80 @@
+random_seed: 42
+fast_mode: true  # Enable fast mode for quick initial results
+
+paths:
+  raw_train: "data/raw/kddcup.data_10_percent.gz"
+  raw_test: "data/raw/corrected.gz"
+  raw_unlabeled: "data/raw/kddcup.testdata.unlabeled.gz"
+  transformer: "models/transformer.joblib"
+  label_encoder: "models/label_encoder.joblib"
+  model_dir: "models"
+  results_dir: "results"
+  unlabeled_predictions: "results/predictions/unlabeled_predictions.csv"
+
+preprocessing:
+  test_size: 0.15
+  val_size: 0.15
+  scale_numeric: true
+  drop_constant: true
+  oversample: true        # use SMOTE when True (helps class imbalance)
+  oversample_seed: 42
+  max_oversample_size: 300000  # Optimized for speed while maintaining quality
+
+training:
+  k_folds: 3             # Reduced for faster training
+  use_class_weights: true
+  batch_size: 1024       # Increased for faster training
+  patience: 5            # Reduced for faster training
+
+models:
+  train_lightgbm: true
+  train_xgboost: true
+  train_random_forest: true
+
+# Inference configuration
+inference:
+  preferred_model: "lgbm"  # Model to use for inference (with fallback logic)
+
+# Production-ready settings for real-world deployment
+production:
+  # Confidence thresholds for production decisions
+  high_confidence_threshold: 0.9      # High confidence predictions
+  medium_confidence_threshold: 0.7    # Medium confidence predictions
+  low_confidence_threshold: 0.5       # Low confidence predictions
+  
+  # Ensemble settings for robustness
+  use_ensemble: true                  # Use ensemble predictions
+  ensemble_voting: "soft"             # "hard" or "soft" voting
+  min_models_for_ensemble: 2          # Minimum models needed for ensemble
+  
+  # Production monitoring
+  monitor_confidence_drift: true      # Track confidence changes over time
+  alert_low_confidence: true          # Alert when confidence drops
+  confidence_drift_threshold: 0.1     # Alert if confidence drops by 10%
+  
+  # Real-world robustness
+  handle_unknown_features: true       # Handle new features gracefully
+  fallback_strategy: "ensemble"       # Fallback when primary model fails
+  retrain_frequency: "monthly"        # How often to retrain models
+
+# Speed optimization settings for 97-99% accuracy
+optimization:
+  # Random Forest optimization - balanced for speed and accuracy
+  rf_n_estimators: 100      # Reduced for faster training
+  rf_max_depth: 15          # Reduced for faster training
+  rf_min_samples_split: 10  # Increased for faster training
+  rf_min_samples_leaf: 5    # Increased for faster training
+  
+  # XGBoost optimization  
+  xgb_n_estimators: 150     # Reduced for faster training
+  xgb_max_depth: 6          # Reduced for faster training
+  xgb_learning_rate: 0.1    # Increased for faster convergence
+  
+  # LightGBM optimization
+  lgbm_n_estimators: 200    # Reduced for faster training
+  lgbm_learning_rate: 0.1   # Increased for faster convergence
+  
+
+  
+  # SMOTE optimization
+  smote_strategy: "auto"     # Let SMOTE choose optimal strategy
